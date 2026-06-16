@@ -24,7 +24,7 @@ final class KeyCatalogTests: XCTestCase {
     func testAllHIDUsagesInKeyboardPage() {
         for k in KeyCatalog.keys {
             XCTAssertGreaterThanOrEqual(k.hidUsage, 0x700000000, "\(k.id) hidUsage 범위 오류")
-            XCTAssertLessThan(k.hidUsage, 0x7000000FF, "\(k.id) hidUsage 범위 오류")
+            XCTAssertLessThan(k.hidUsage, 0x700000100, "\(k.id) hidUsage 범위 오류")
         }
     }
 
