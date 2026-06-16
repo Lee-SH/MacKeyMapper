@@ -49,7 +49,7 @@ public enum KeyCatalog {
         .init(id: "backslash", label: "\\", virtualKeyCode: 42, hidUsage: 0x700000000 | 0x31, row: 2, width: 1.5),
 
         // Row 3 — home row
-        .init(id: "capsLock", label: "⇪", virtualKeyCode: 57, hidUsage: 0x700000000 | 0x39, row: 3, width: 1.75, isModifier: true),
+        .init(id: "capsLock", label: "⇪", name: "caps lock", virtualKeyCode: 57, hidUsage: 0x700000000 | 0x39, row: 3, width: 1.75, isModifier: true),
         .init(id: "a", label: "A", virtualKeyCode: 0, hidUsage: 0x700000000 | 0x04, row: 3),
         .init(id: "s", label: "S", virtualKeyCode: 1, hidUsage: 0x700000000 | 0x16, row: 3),
         .init(id: "d", label: "D", virtualKeyCode: 2, hidUsage: 0x700000000 | 0x07, row: 3),
@@ -64,7 +64,7 @@ public enum KeyCatalog {
         .init(id: "return", label: "⏎", virtualKeyCode: 36, hidUsage: 0x700000000 | 0x28, row: 3, width: 2.25),
 
         // Row 4 — bottom letter row
-        .init(id: "leftShift", label: "⇧", virtualKeyCode: 56, hidUsage: 0x700000000 | 0xE1, row: 4, width: 2.25, isModifier: true),
+        .init(id: "leftShift", label: "⇧", name: "L shift", virtualKeyCode: 56, hidUsage: 0x700000000 | 0xE1, row: 4, width: 2.25, isModifier: true),
         .init(id: "z", label: "Z", virtualKeyCode: 6, hidUsage: 0x700000000 | 0x1D, row: 4),
         .init(id: "x", label: "X", virtualKeyCode: 7, hidUsage: 0x700000000 | 0x1B, row: 4),
         .init(id: "c", label: "C", virtualKeyCode: 8, hidUsage: 0x700000000 | 0x06, row: 4),
@@ -75,16 +75,16 @@ public enum KeyCatalog {
         .init(id: "comma", label: ",", virtualKeyCode: 43, hidUsage: 0x700000000 | 0x36, row: 4),
         .init(id: "period", label: ".", virtualKeyCode: 47, hidUsage: 0x700000000 | 0x37, row: 4),
         .init(id: "slash", label: "/", virtualKeyCode: 44, hidUsage: 0x700000000 | 0x38, row: 4),
-        .init(id: "rightShift", label: "⇧", virtualKeyCode: 60, hidUsage: 0x700000000 | 0xE5, row: 4, width: 2.75, isModifier: true),
+        .init(id: "rightShift", label: "⇧", name: "R shift", virtualKeyCode: 60, hidUsage: 0x700000000 | 0xE5, row: 4, width: 2.75, isModifier: true),
 
         // Row 5 — modifier row (좌/우 구분이 핵심)
-        .init(id: "leftControl", label: "⌃", virtualKeyCode: 59, hidUsage: 0x700000000 | 0xE0, row: 5, width: 1.25, isModifier: true),
-        .init(id: "leftOption", label: "⌥", virtualKeyCode: 58, hidUsage: 0x700000000 | 0xE2, row: 5, width: 1.25, isModifier: true),
-        .init(id: "leftCommand", label: "⌘", virtualKeyCode: 55, hidUsage: 0x700000000 | 0xE3, row: 5, width: 1.25, isModifier: true),
+        .init(id: "leftControl", label: "⌃", name: "L control", virtualKeyCode: 59, hidUsage: 0x700000000 | 0xE0, row: 5, width: 1.25, isModifier: true),
+        .init(id: "leftOption", label: "⌥", name: "L option", virtualKeyCode: 58, hidUsage: 0x700000000 | 0xE2, row: 5, width: 1.25, isModifier: true),
+        .init(id: "leftCommand", label: "⌘", name: "L command", virtualKeyCode: 55, hidUsage: 0x700000000 | 0xE3, row: 5, width: 1.25, isModifier: true),
         .init(id: "space", label: "space", virtualKeyCode: 49, hidUsage: 0x700000000 | 0x2C, row: 5, width: 6.25),
-        .init(id: "rightCommand", label: "⌘", virtualKeyCode: 54, hidUsage: 0x700000000 | 0xE7, row: 5, width: 1.25, isModifier: true),
-        .init(id: "rightOption", label: "⌥", virtualKeyCode: 61, hidUsage: 0x700000000 | 0xE6, row: 5, width: 1.25, isModifier: true),
-        .init(id: "rightControl", label: "⌃", virtualKeyCode: 62, hidUsage: 0x700000000 | 0xE4, row: 5, width: 1.25, isModifier: true),
+        .init(id: "rightCommand", label: "⌘", name: "R command", virtualKeyCode: 54, hidUsage: 0x700000000 | 0xE7, row: 5, width: 1.25, isModifier: true),
+        .init(id: "rightOption", label: "⌥", name: "R option", virtualKeyCode: 61, hidUsage: 0x700000000 | 0xE6, row: 5, width: 1.25, isModifier: true),
+        .init(id: "rightControl", label: "⌃", name: "R control", virtualKeyCode: 62, hidUsage: 0x700000000 | 0xE4, row: 5, width: 1.25, isModifier: true),
     ]
 
     public static func key(id: String) -> KeyDefinition? {

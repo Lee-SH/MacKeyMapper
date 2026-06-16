@@ -17,6 +17,13 @@ struct KeyCapView: View {
                 .overlay(RoundedRectangle(cornerRadius: 6).stroke(border, lineWidth: isPendingSource ? 2 : 1))
             VStack(spacing: 1) {
                 Text(key.label).font(.system(size: 12, weight: .medium))
+                if let name = key.name {
+                    Text(name)
+                        .font(.system(size: 8))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
                 if let dest = mappedDestLabel {
                     Text("→\(dest)").font(.system(size: 9)).foregroundStyle(.blue)
                 }
