@@ -34,4 +34,10 @@ final class RemapEngineTests: XCTestCase {
         XCTAssertTrue(plist.contains("<key>RunAtLoad</key>"))
         XCTAssertTrue(plist.contains("<true/>"))
     }
+
+    func testLaunchAgentPlistEscapesSpecialCharacters() {
+        let plist = RemapEngine.launchAgentPlist(arguments: ["a&b", "c<d"])
+        XCTAssertTrue(plist.contains("<string>a&amp;b</string>"))
+        XCTAssertTrue(plist.contains("<string>c&lt;d</string>"))
+    }
 }
