@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/master.swiftdeps"
+  },
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.d",
+    "object": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swiftdeps"
+  }
+}

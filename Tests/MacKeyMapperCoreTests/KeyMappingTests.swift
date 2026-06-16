@@ -38,4 +38,8 @@ final class KeyMappingTests: XCTestCase {
     func testMappingIDIsStable() {
         XCTAssertEqual(KeyMapping(sourceKeyID: "a", destKeyID: "b").id, "a->b")
     }
+
+    func testEmptyMappingsPass() {
+        XCTAssertNoThrow(try validateMappings([], catalog: catalog))
+    }
 }

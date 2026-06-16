@@ -1,0 +1,23 @@
+{
+  "": {
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/master.swiftdeps"
+  },
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyCatalog.swift": {
+    "dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.d",
+    "object": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o",
+    "swiftmodule": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog~partial.swiftmodule",
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swiftdeps"
+  },
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyDefinition.swift": {
+    "dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.d",
+    "object": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o",
+    "swiftmodule": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition~partial.swiftmodule",
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swiftdeps"
+  },
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyMapping.swift": {
+    "dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.d",
+    "object": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o",
+    "swiftmodule": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping~partial.swiftmodule",
+    "swift-dependencies": "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swiftdeps"
+  }
+}

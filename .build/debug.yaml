@@ -1,0 +1,168 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "MacKeyMapper-arm64-apple-macosx15.0-debug.exe": ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe>"]
+  "MacKeyMapper-arm64-apple-macosx15.0-debug.module": ["<MacKeyMapper-arm64-apple-macosx15.0-debug.module>"]
+  "MacKeyMapperCore-arm64-apple-macosx15.0-debug.module": ["<MacKeyMapperCore-arm64-apple-macosx15.0-debug.module>"]
+  "MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module": ["<MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module>"]
+  "MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.module": ["<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.module>"]
+  "MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test": ["<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe>","<MacKeyMapper-arm64-apple-macosx15.0-debug.module>","<MacKeyMapperCore-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe>","<MacKeyMapper-arm64-apple-macosx15.0-debug.module>","<MacKeyMapperCore-arm64-apple-macosx15.0-debug.module>","<MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module>","<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test>"]
+default: "main"
+nodes:
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapper/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/Tests/MacKeyMapperCoreTests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper":
+    is-mutated: true
+commands:
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper-entitlement.plist"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper-entitlement.plist"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapper/main.swift"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/sources"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/sources"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/main.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.product/Objects.LinkFileList"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyCatalog.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyDefinition.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyMapping.swift"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/sources"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/sources"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/Tests/MacKeyMapperCoreTests/KeyMappingTests.swift"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/sources"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/sources"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.derived/runner.swift"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/sources"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.derived/runner.swift"]
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/KeyMappingTests.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swift.o"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.product/Objects.LinkFileList"
+
+  "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<MacKeyMapper-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<MacKeyMapper-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/main.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapper.swiftmodule"]
+    outputs: ["<MacKeyMapper-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MacKeyMapperCore-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule"]
+    outputs: ["<MacKeyMapperCore-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/KeyMappingTests.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCoreTests.swiftmodule"]
+    outputs: ["<MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperPackageTests.swiftmodule"]
+    outputs: ["<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.module>"]
+
+  "<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test>":
+    tool: phony
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.xctest/Contents/MacOS/MacKeyMapperPackageTests"]
+    outputs: ["<MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test>"]
+
+  "C.MacKeyMapper-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/main.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.product/Objects.LinkFileList"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MacKeyMapper"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug","-o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper","-module-name","MacKeyMapper","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_MacKeyMapper_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.product/Objects.LinkFileList","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapper.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.MacKeyMapper-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper-entitlement.plist"]
+    outputs: ["<MacKeyMapper-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/MacKeyMapper"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper-entitlement.plist","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper"]
+
+  "C.MacKeyMapper-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapper/main.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/sources"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/main.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapper.swiftmodule"]
+    description: "Compiling Swift Module 'MacKeyMapper' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","MacKeyMapper","-emit-dependencies","-emit-module","-emit-module-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapper.swiftmodule","-output-file-map","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/output-file-map.json","-incremental","-c","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapper.build/sources","-I","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-enable-batch-mode","-index-store-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","MacKeyMapper_main","-swift-version","6","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","mackeymapper"]
+
+  "C.MacKeyMapperCore-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyCatalog.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyDefinition.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/KeyMapping.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/sources"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule"]
+    description: "Compiling Swift Module 'MacKeyMapperCore' (3 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","MacKeyMapperCore","-emit-dependencies","-emit-module","-emit-module-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule","-output-file-map","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/sources","-I","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-enable-batch-mode","-index-store-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/MacKeyMapperCore-Swift.h","-swift-version","6","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","mackeymapper"]
+
+  "C.MacKeyMapperCoreTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/Tests/MacKeyMapperCoreTests/KeyMappingTests.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/sources"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/KeyMappingTests.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCoreTests.swiftmodule"]
+    description: "Compiling Swift Module 'MacKeyMapperCoreTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","MacKeyMapperCoreTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCoreTests.swiftmodule","-output-file-map","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/sources","-I","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-enable-batch-mode","-index-store-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","6","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","mackeymapper"]
+
+  "C.MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.derived/runner.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCoreTests.swiftmodule","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/sources"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'MacKeyMapperPackageTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","MacKeyMapperPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperPackageTests.swiftmodule","-output-file-map","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/sources","-I","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx14.0","-enable-batch-mode","-index-store-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/MacKeyMapperPackageTests-Swift.h","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","mackeymapper"]
+
+  "C.MacKeyMapperPackageTests-arm64-apple-macosx15.0-debug.test":
+    tool: shell
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyCatalog.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyDefinition.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/KeyMapping.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCoreTests.build/KeyMappingTests.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.build/runner.swift.o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.xctest/Contents/MacOS/MacKeyMapperPackageTests"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.xctest/Contents/MacOS/MacKeyMapperPackageTests"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug","-o","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.xctest/Contents/MacOS/MacKeyMapperPackageTests","-module-name","MacKeyMapperPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperPackageTests.product/Objects.LinkFileList","-target","arm64-apple-macosx14.0","-Xlinker","-add_ast_path","-Xlinker","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperCoreTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/Modules/MacKeyMapperPackageTests.swiftmodule","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapper/","/Users/gwanlija/IdeaProjects/MacKeyMapper/Sources/MacKeyMapperCore/","/Users/gwanlija/IdeaProjects/MacKeyMapper/Tests/MacKeyMapperCoreTests/","/Users/gwanlija/IdeaProjects/MacKeyMapper/Package.swift","/Users/gwanlija/IdeaProjects/MacKeyMapper/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
