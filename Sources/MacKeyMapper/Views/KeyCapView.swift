@@ -7,6 +7,7 @@ struct KeyCapView: View {
     let isPressed: Bool
     let isPendingSource: Bool
     let mappedDestLabel: String?
+    let theme: Theme
     let onTap: () -> Void
 
     var body: some View {
@@ -16,16 +17,18 @@ struct KeyCapView: View {
                 .fill(background)
                 .overlay(RoundedRectangle(cornerRadius: 6).stroke(border, lineWidth: isPendingSource ? 2 : 1))
             VStack(spacing: 1) {
-                Text(key.label).font(.system(size: 12, weight: .medium))
+                Text(key.label)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundStyle(theme.labelColor)
                 if let name = key.name {
                     Text(name)
                         .font(.system(size: 8))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(theme.nameColor)
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                 }
                 if let dest = mappedDestLabel {
-                    Text("→\(dest)").font(.system(size: 9)).foregroundStyle(.blue)
+                    Text("→\(dest)").font(.system(size: 9)).foregroundStyle(theme.accent)
                 }
             }
             .padding(2)
@@ -36,12 +39,12 @@ struct KeyCapView: View {
     }
 
     private var background: Color {
-        if isPressed { return .accentColor.opacity(0.6) }
-        if mappedDestLabel != nil { return .blue.opacity(0.12) }
-        return Color(white: 0.18)
+        if isPressed { return theme.keyCapPressed }
+        if mappedDestLabel != nil { return theme.keyCapMapped }
+        return theme.keyCapBackground
     }
 
     private var border: Color {
-        isPendingSource ? .orange : Color(white: 0.35)
+        isPendingSource ? theme.pendingBorder : theme.keyBorder
     }
 }

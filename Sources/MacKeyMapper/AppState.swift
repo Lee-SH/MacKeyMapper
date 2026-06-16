@@ -14,13 +14,16 @@ final class AppState: ObservableObject {
     @Published var pendingSourceID: String? = nil
     @Published var accessibilityTrusted: Bool = false
     @Published var lastError: String? = nil
+    @Published var theme: Theme = .dark
 
+    private let themeDefaultsKey = "themeID"
     let catalog = KeyCatalog.keys
     private let store = RemapStore(fileURL: RemapStore.defaultURL())
     private let monitor = KeyEventMonitor()
 
     func start() {
         accessibilityTrusted = Permissions.isTrusted()
+        theme = Theme.by(id: UserDefaults.standard.string(forKey: themeDefaultsKey))
         mappings = (try? store.load()) ?? []
         monitor.onEvent = { [weak self] code, isDown, isModifier in
             Task { @MainActor in
@@ -28,6 +31,11 @@ final class AppState: ObservableObject {
             }
         }
         monitor.start()
+    }
+
+    func setTheme(_ t: Theme) {
+        theme = t
+        UserDefaults.standard.set(t.id, forKey: themeDefaultsKey)
     }
 
     func refreshPermission() {

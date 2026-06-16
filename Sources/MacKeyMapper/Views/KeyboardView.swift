@@ -20,6 +20,7 @@ struct KeyboardView: View {
                             isPressed: state.pressedKeyCodes.contains(key.virtualKeyCode),
                             isPendingSource: state.pendingSourceID == key.id,
                             mappedDestLabel: destLabel(for: key),
+                            theme: state.theme,
                             onTap: { state.keyTapped(key) }
                         )
                     }
@@ -27,7 +28,7 @@ struct KeyboardView: View {
             }
         }
         .padding(12)
-        .background(Color(white: 0.1))
+        .background(state.theme.keyboardBackground)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
