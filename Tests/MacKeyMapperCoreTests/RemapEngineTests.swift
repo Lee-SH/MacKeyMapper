@@ -40,4 +40,9 @@ final class RemapEngineTests: XCTestCase {
         XCTAssertTrue(plist.contains("<string>a&amp;b</string>"))
         XCTAssertTrue(plist.contains("<string>c&lt;d</string>"))
     }
+
+    func testLaunchAgentURLPath() {
+        XCTAssertTrue(RemapEngine.launchAgentURL().path
+            .hasSuffix("Library/LaunchAgents/com.mackeymapper.remap.plist"))
+    }
 }

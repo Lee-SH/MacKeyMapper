@@ -52,3 +52,57 @@ public enum RemapEngine {
         """
     }
 }
+
+public enum RemapRuntimeError: Error, Equatable {
+    case hidutilFailed(status: Int32, message: String)
+}
+
+extension RemapEngine {
+    @discardableResult
+    static func runHidutil(_ arguments: [String]) throws -> Int32 {
+        let proc = Process()
+        proc.executableURL = URL(fileURLWithPath: "/usr/bin/hidutil")
+        proc.arguments = arguments
+        let errPipe = Pipe()
+        proc.standardError = errPipe
+        proc.standardOutput = Pipe()
+        try proc.run()
+        proc.waitUntilExit()
+        if proc.terminationStatus != 0 {
+            let msg = String(data: errPipe.fileHandleForReading.readDataToEndOfFile(),
+                             encoding: .utf8) ?? ""
+            throw RemapRuntimeError.hidutilFailed(status: proc.terminationStatus, message: msg)
+        }
+        return proc.terminationStatus
+    }
+
+    public static func apply(_ mappings: [KeyMapping],
+                             catalog: [KeyDefinition] = KeyCatalog.keys) throws {
+        try runHidutil(hidutilArguments(for: mappings, catalog: catalog))
+    }
+
+    public static func clearAll() throws {
+        try runHidutil(clearArguments())
+    }
+
+    public static func launchAgentURL() -> URL {
+        FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("LaunchAgents/\(launchAgentLabel).plist")
+    }
+
+    public static func installLaunchAgent(for mappings: [KeyMapping],
+                                          catalog: [KeyDefinition] = KeyCatalog.keys) throws {
+        let url = launchAgentURL()
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(),
+                                                withIntermediateDirectories: true)
+        let plist = launchAgentPlist(arguments: hidutilArguments(for: mappings, catalog: catalog))
+        try plist.write(to: url, atomically: true, encoding: .utf8)
+    }
+
+    public static func removeLaunchAgent() throws {
+        let url = launchAgentURL()
+        if FileManager.default.fileExists(atPath: url.path) {
+            try FileManager.default.removeItem(at: url)
+        }
+    }
+}
