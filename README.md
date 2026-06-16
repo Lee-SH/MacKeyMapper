@@ -2,9 +2,16 @@
 
 macOS 전용 키보드 시각화 + 시스템 전역 리매핑 도구.
 
-## 빌드/실행
+## 설치 (권장)
+```
+./scripts/install.sh
+```
+릴리즈 빌드 후 `/Applications/MacKeyMapper.app` 에 설치합니다. 이후엔 빌드 없이
+Launchpad/응용 프로그램에서 더블클릭으로 실행하면 됩니다. (`open -a MacKeyMapper`)
+
+## 빌드/실행 (개발)
 - 테스트: `swift test`
-- 배포 번들(권장 실행 경로): `./scripts/make-app.sh` → `open build/MacKeyMapper.app`
+- 배포 번들만 만들기: `./scripts/make-app.sh` → `open build/MacKeyMapper.app`
 - 개발용 빠른 컴파일 확인: `swift run MacKeyMapper`
 
 > 키 입력 감지(이벤트탭)는 '손쉬운 사용' 권한이 **코드사인된 앱 번들**에 안정적으로 묶입니다.
