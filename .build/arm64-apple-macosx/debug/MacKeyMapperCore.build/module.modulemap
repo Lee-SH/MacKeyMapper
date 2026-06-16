@@ -1,4 +1,0 @@
-module MacKeyMapperCore {
-    header "/Users/gwanlija/IdeaProjects/MacKeyMapper/.build/arm64-apple-macosx/debug/MacKeyMapperCore.build/MacKeyMapperCore-Swift.h"
-    requires objc
-}
