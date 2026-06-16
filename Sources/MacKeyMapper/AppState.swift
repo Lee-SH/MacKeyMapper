@@ -32,6 +32,11 @@ final class AppState: ObservableObject {
 
     func refreshPermission() {
         accessibilityTrusted = Permissions.isTrusted()
+        // 권한이 방금 허용됐다면 이벤트탭을 재시도한다. start()는 tap==nil 일 때만
+        // 동작하므로, 이전에 권한 미허용으로 탭 생성에 실패한 경우 재실행 없이 즉시 감지가 켜진다.
+        if accessibilityTrusted {
+            monitor.start()
+        }
     }
 
     private func handleKey(code: UInt16, isDown: Bool, isModifier: Bool) {
