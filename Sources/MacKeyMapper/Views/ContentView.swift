@@ -8,8 +8,7 @@ struct ContentView: View {
             if !state.accessibilityTrusted {
                 PermissionBanner()
             }
-            Text("눌린 키코드: \(state.pressedKeyCodes.sorted().map(String.init).joined(separator: ", "))")
-                .font(.system(.body, design: .monospaced))
+            KeyboardView()
             if let err = state.lastError {
                 Text(err).foregroundStyle(.red).font(.caption)
             }
