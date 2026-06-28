@@ -128,12 +128,18 @@ final class AppState: ObservableObject {
 
     func cancelScan() {
         scanSession = nil
+        pressedKeyCodes = []   // a modifier pressed mid-scan must not stay stuck in other modes
     }
 
     private func finishScanIfComplete() {
         guard let session = scanSession, session.isComplete else { return }
         let result = session.result()
-        try? scanStore.save(result)
+        do {
+            try scanStore.save(result)
+            lastError = nil
+        } catch {
+            lastError = "\(error)"
+        }
         scanned = result
         scanSession = nil
         pressedKeyCodes = []   // clear modifier-tracking state used during scan

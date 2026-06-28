@@ -5,9 +5,8 @@ struct ScanView: View {
     @EnvironmentObject var state: AppState
     let unit: CGFloat = 48
 
-    private var rows: [Int] {
-        Array(Set(ScanTemplate.slots.map(\.row))).sorted()
-    }
+    // ScanTemplate.slots is static, so the row list never changes — compute it once.
+    private static let rows: [Int] = Array(Set(ScanTemplate.slots.map(\.row))).sorted()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -50,7 +49,7 @@ struct ScanView: View {
 
     private var keyboard: some View {
         VStack(alignment: .leading, spacing: 6) {
-            ForEach(rows, id: \.self) { row in
+            ForEach(Self.rows, id: \.self) { row in
                 HStack(spacing: 6) {
                     ForEach(slots(in: row)) { slot in
                         ScanKeyCapView(

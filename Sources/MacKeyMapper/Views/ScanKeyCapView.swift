@@ -41,7 +41,10 @@ struct ScanKeyCapView: View {
     }
 
     private func rawValue(_ cap: ScannedKey) -> String {
-        cap.character.isEmpty ? "#\(cap.keyCode)" : "\(cap.character) · \(cap.keyCode)"
+        // Treat control characters (esc, return, tab, …) as having no printable value.
+        let printable = !cap.character.isEmpty
+            && cap.character.unicodeScalars.allSatisfy { $0.value >= 0x20 }
+        return printable ? "\(cap.character) · \(cap.keyCode)" : "#\(cap.keyCode)"
     }
 
     private var background: Color {
