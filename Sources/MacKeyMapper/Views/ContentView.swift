@@ -10,13 +10,17 @@ struct ContentView: View {
             }
 
             HStack {
-                Picker("모드", selection: $state.mode) {
-                    Text("테스트").tag(AppMode.test)
-                    Text("리매핑").tag(AppMode.remap)
+                Picker("Mode", selection: $state.mode) {
+                    Text("Scan").tag(AppMode.scan)
+                    Text("Test").tag(AppMode.test)
+                    Text("Remap").tag(AppMode.remap)
                 }
                 .pickerStyle(.segmented)
-                .frame(width: 260)
-                .onChange(of: state.mode) { _, _ in state.pendingSourceID = nil }
+                .frame(width: 340)
+                .onChange(of: state.mode) { _, newMode in
+                    state.pendingSourceID = nil
+                    if newMode != .scan { state.cancelScan() }   // don't let a scan linger and hijack other modes
+                }
 
                 Spacer()
 
@@ -33,35 +37,38 @@ struct ContentView: View {
                         }
                     }
                 } label: {
-                    Label("테마: \(state.theme.name)", systemImage: "paintpalette")
+                    Label("Theme: \(state.theme.name)", systemImage: "paintpalette")
                 }
                 .menuStyle(.borderlessButton)
                 .fixedSize()
             }
 
-            if state.mode == .remap {
-                Text(promptText)
-                    .font(.callout)
-                    .foregroundStyle(state.theme.pendingBorder)
-            }
+            if state.mode == .scan {
+                ScanView()
+            } else {
+                if state.mode == .remap {
+                    Text(promptText)
+                        .font(.callout)
+                        .foregroundStyle(state.theme.pendingBorder)
+                }
 
-            KeyboardView()
-            MappingListView()
+                KeyboardView()
+                MappingListView()
+            }
 
             if let err = state.lastError {
                 Text(err).foregroundStyle(.red).font(.caption)
             }
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(state.theme.windowBackground)
         .preferredColorScheme(state.theme.colorScheme)
     }
 
     private var promptText: String {
         if let src = state.pendingSourceID {
-            return "'\(src)' 선택됨 — 바꿀 대상 키를 클릭하세요. (같은 키 재클릭 시 취소)"
+            return "'\(src)' selected — click the target key to map to. (Click the same key again to cancel)"
         }
-        return "원본 키를 클릭하세요."
+        return "Click the source key."
     }
 }
