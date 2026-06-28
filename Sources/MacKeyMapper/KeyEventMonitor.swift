@@ -17,6 +17,12 @@ final class KeyEventMonitor {
         let callback: CGEventTapCallBack = { _, type, event, refcon in
             guard let refcon = refcon else { return Unmanaged.passUnretained(event) }
             let monitor = Unmanaged<KeyEventMonitor>.fromOpaque(refcon).takeUnretainedValue()
+            // The system can disable a tap (timeout or user input); we must re-enable it,
+            // otherwise it goes silent and no further key events are delivered.
+            if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
+                if let t = monitor.tap { CGEvent.tapEnable(tap: t, enable: true) }
+                return Unmanaged.passUnretained(event)
+            }
             let code = UInt16(truncatingIfNeeded: event.getIntegerValueField(.keyboardEventKeycode))
             let isRepeat = event.getIntegerValueField(.keyboardEventAutorepeat) != 0
             switch type {

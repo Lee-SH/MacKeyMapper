@@ -13,7 +13,7 @@ final class AppState: ObservableObject {
     @Published var pressedKeyCodes: Set<UInt16> = []
     @Published var mappings: [KeyMapping] = []
     @Published var pendingSourceID: String? = nil
-    @Published var accessibilityTrusted: Bool = false
+    @Published var inputMonitoringGranted: Bool = false
     @Published var lastError: String? = nil
     @Published var theme: Theme = .dark
     @Published private(set) var scanned: ScannedKeyboard? = nil
@@ -26,7 +26,8 @@ final class AppState: ObservableObject {
     private let monitor = KeyEventMonitor()
 
     func start() {
-        accessibilityTrusted = Permissions.isTrusted()
+        Permissions.requestInputMonitoring()   // surfaces the prompt on first launch
+        inputMonitoringGranted = Permissions.isInputMonitoringGranted()
         theme = Theme.by(id: UserDefaults.standard.string(forKey: themeDefaultsKey))
         mappings = (try? store.load()) ?? []
         scanned = try? scanStore.load()
@@ -44,11 +45,11 @@ final class AppState: ObservableObject {
     }
 
     func refreshPermission() {
-        accessibilityTrusted = Permissions.isTrusted()
+        inputMonitoringGranted = Permissions.isInputMonitoringGranted()
         // If permission was just granted, retry the event tap. start() only acts when
         // tap == nil, so if tap creation previously failed due to missing permission,
         // detection turns on immediately without needing a relaunch.
-        if accessibilityTrusted {
+        if inputMonitoringGranted {
             monitor.start()
         }
     }

@@ -7,11 +7,11 @@ struct PermissionBanner: View {
         HStack {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundStyle(.yellow)
-            Text("키 입력 감지에는 '손쉬운 사용' 권한이 필요합니다. 허용 후 앱을 다시 실행하세요.")
+            Text("Key detection requires Input Monitoring permission. Grant it, then relaunch the app.")
                 .font(.callout)
             Spacer()
-            Button("설정 열기") { Permissions.promptAndOpenSettings() }
-            Button("다시 확인") { state.refreshPermission() }
+            Button("Open Settings") { Permissions.promptAndOpenSettings() }
+            Button("Re-check") { state.refreshPermission() }
         }
         .padding(10)
         .background(Color.yellow.opacity(0.15))
