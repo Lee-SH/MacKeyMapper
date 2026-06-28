@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// 키보드/창의 색 구성. UI 전용 개념이라 앱 타깃에 둔다.
+/// Color scheme for the keyboard/window. A UI-only concept, so it lives in the app target.
 struct Theme: Identifiable, Equatable {
     let id: String
     let name: String
@@ -13,8 +13,8 @@ struct Theme: Identifiable, Equatable {
     let pendingBorder: Color
     let labelColor: Color
     let nameColor: Color
-    let accent: Color   // 리매핑 배지(→대상) 색
-    let colorScheme: ColorScheme   // 시스템 컨트롤(피커/메뉴/목록)이 따라갈 외관
+    let accent: Color   // remap badge (→ target) color
+    let colorScheme: ColorScheme   // appearance that system controls (picker/menu/list) follow
 
     static let all: [Theme] = [dark, light, ocean, sunset]
 
@@ -23,7 +23,7 @@ struct Theme: Identifiable, Equatable {
     }
 
     static let dark = Theme(
-        id: "dark", name: "다크",
+        id: "dark", name: "Dark",
         windowBackground: Color(white: 0.12),
         keyboardBackground: Color(white: 0.16),
         keyCapBackground: Color(white: 0.24),
@@ -38,7 +38,7 @@ struct Theme: Identifiable, Equatable {
     )
 
     static let light = Theme(
-        id: "light", name: "라이트",
+        id: "light", name: "Light",
         windowBackground: Color(white: 0.95),
         keyboardBackground: Color(white: 0.84),
         keyCapBackground: .white,
@@ -53,7 +53,7 @@ struct Theme: Identifiable, Equatable {
     )
 
     static let ocean = Theme(
-        id: "ocean", name: "오션",
+        id: "ocean", name: "Ocean",
         windowBackground: Color(red: 0.05, green: 0.10, blue: 0.20),
         keyboardBackground: Color(red: 0.08, green: 0.15, blue: 0.28),
         keyCapBackground: Color(red: 0.12, green: 0.22, blue: 0.40),
@@ -68,7 +68,7 @@ struct Theme: Identifiable, Equatable {
     )
 
     static let sunset = Theme(
-        id: "sunset", name: "선셋",
+        id: "sunset", name: "Sunset",
         windowBackground: Color(red: 0.15, green: 0.08, blue: 0.10),
         keyboardBackground: Color(red: 0.22, green: 0.12, blue: 0.14),
         keyCapBackground: Color(red: 0.33, green: 0.18, blue: 0.20),

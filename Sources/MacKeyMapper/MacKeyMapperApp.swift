@@ -9,7 +9,6 @@ struct MacKeyMapperApp: App {
             ContentView()
                 .environmentObject(state)
                 .onAppear { state.start() }
-                .frame(minWidth: 900, minHeight: 360)
         }
         .windowResizability(.contentSize)
     }

@@ -77,7 +77,7 @@ public enum KeyCatalog {
         .init(id: "slash", label: "/", virtualKeyCode: 44, hidUsage: 0x700000000 | 0x38, row: 4),
         .init(id: "rightShift", label: "⇧", name: "R shift", virtualKeyCode: 60, hidUsage: 0x700000000 | 0xE5, row: 4, width: 2.75, isModifier: true),
 
-        // Row 5 — modifier row (좌/우 구분이 핵심)
+        // Row 5 — modifier row (left/right distinction is essential)
         .init(id: "leftControl", label: "⌃", name: "L control", virtualKeyCode: 59, hidUsage: 0x700000000 | 0xE0, row: 5, width: 1.25, isModifier: true),
         .init(id: "leftOption", label: "⌥", name: "L option", virtualKeyCode: 58, hidUsage: 0x700000000 | 0xE2, row: 5, width: 1.25, isModifier: true),
         .init(id: "leftCommand", label: "⌘", name: "L command", virtualKeyCode: 55, hidUsage: 0x700000000 | 0xE3, row: 5, width: 1.25, isModifier: true),

@@ -1,7 +1,7 @@
 public struct KeyDefinition: Identifiable, Equatable, Sendable {
     public let id: String
     public let label: String
-    /// 기호 라벨(예: ⌃, ⌘)만으로 식별이 어려운 키에 함께 표시할 이름(예: "control"). 없으면 nil.
+    /// Name shown alongside keys that are hard to identify by symbol label alone (e.g. ⌃, ⌘) — e.g. "control". nil if not needed.
     public let name: String?
     public let virtualKeyCode: UInt16
     public let hidUsage: UInt64

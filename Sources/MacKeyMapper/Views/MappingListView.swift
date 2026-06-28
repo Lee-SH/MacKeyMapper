@@ -7,13 +7,13 @@ struct MappingListView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Text("적용된 리매핑 (\(state.mappings.count))").font(.headline)
+                Text("Active Remaps (\(state.mappings.count))").font(.headline)
                 Spacer()
-                Button("전체 초기화", role: .destructive) { state.clearAll() }
+                Button("Reset All", role: .destructive) { state.clearAll() }
                     .disabled(state.mappings.isEmpty)
             }
             if state.mappings.isEmpty {
-                Text("리매핑 모드에서 '원본 키 → 바꿀 키' 순서로 클릭하세요.")
+                Text("In Remap mode, click 'source key → target key' in order.")
                     .font(.caption).foregroundStyle(.secondary)
             } else {
                 ForEach(state.mappings) { m in

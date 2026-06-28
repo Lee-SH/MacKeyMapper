@@ -1,32 +1,36 @@
 # MacKeyMapper
 
-macOS 전용 키보드 시각화 + 시스템 전역 리매핑 도구.
+A macOS keyboard visualizer + system-wide remapping tool.
 
-## 설치 (권장)
+## Install (recommended)
 ```
 ./scripts/install.sh
 ```
-릴리즈 빌드 후 `/Applications/MacKeyMapper.app` 에 설치합니다. 이후엔 빌드 없이
-Launchpad/응용 프로그램에서 더블클릭으로 실행하면 됩니다. (`open -a MacKeyMapper`)
+Builds the release and installs it to `/Applications/MacKeyMapper.app`. After that you can
+launch it without rebuilding by double-clicking in Launchpad/Applications. (`open -a MacKeyMapper`)
 
-## 빌드/실행 (개발)
-- 테스트: `swift test`
-- 배포 번들만 만들기: `./scripts/make-app.sh` → `open build/MacKeyMapper.app`
-- 개발용 빠른 컴파일 확인: `swift run MacKeyMapper`
+## Build/Run (development)
+- Test: `swift test`
+- Build the app bundle only: `./scripts/make-app.sh` → `open build/MacKeyMapper.app`
+- Quick compile check during development: `swift run MacKeyMapper`
 
-> 키 입력 감지(이벤트탭)는 '손쉬운 사용' 권한이 **코드사인된 앱 번들**에 안정적으로 묶입니다.
-> 따라서 실제 사용·테스트는 `swift run` 이 아니라 `make-app.sh` 로 만든 `.app` 실행을 권장합니다.
-> (`swift run` 으로 띄운 임시 바이너리는 권한이 잘 유지되지 않아 하이라이트가 동작하지 않을 수 있음)
+> Key detection (the event tap) reliably binds the Input Monitoring permission to a **code-signed app bundle**.
+> So for real usage and testing, prefer running the `.app` built with `make-app.sh` rather than `swift run`.
+> (A temporary binary launched via `swift run` may not retain the permission, so highlighting may not work.)
 
-## 권한
-키 입력 감지에 '손쉬운 사용(Accessibility)' 권한 필요. 첫 실행 시 안내 배너에서 '설정 열기'로
-허용한 뒤 '다시 확인'을 누르면 즉시 감지가 켜집니다. (권한이 잡히지 않으면 앱을 다시 실행하세요.)
+## Permissions
+Key detection requires the **Input Monitoring** permission (Privacy & Security → Input Monitoring) —
+a listen-only keyboard tap needs Input Monitoring, not Accessibility. On first launch, click 'Open
+Settings' in the banner to grant it, then click 'Re-check'. (If it doesn't take effect, relaunch the app.)
 
-## 동작
-- 테스트 모드: 누른 키가 레이아웃에 하이라이트 (좌/우 모디파이어 구분).
-- 리매핑 모드: 원본 키 → 대상 키 클릭으로 매핑. `hidutil` 즉시 적용 + LaunchAgent로 로그인 시 유지.
-- 전체 초기화: 모든 매핑 해제 및 LaunchAgent 제거.
+Note: rebuilding the app re-signs it ad-hoc, which resets its permission — re-grant Input Monitoring
+after each rebuild.
 
-## 저장 위치
-- 매핑: `~/Library/Application Support/MacKeyMapper/mappings.json`
-- 영속화: `~/Library/LaunchAgents/com.mackeymapper.remap.plist`
+## How it works
+- Test mode: pressed keys are highlighted on the layout (left/right modifiers distinguished).
+- Remap mode: map by clicking source key → target key. Applied instantly via `hidutil`, and persisted across logins with a LaunchAgent.
+- Reset All: removes all mappings and the LaunchAgent.
+
+## Storage locations
+- Mappings: `~/Library/Application Support/MacKeyMapper/mappings.json`
+- Persistence: `~/Library/LaunchAgents/com.mackeymapper.remap.plist`

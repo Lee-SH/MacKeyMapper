@@ -26,6 +26,6 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 </plist>
 PLIST
 
-# 로컬 사용을 위한 ad-hoc 서명 (손쉬운 사용 권한 안정화)
+# Ad-hoc sign for local use (stabilizes the Input Monitoring permission)
 codesign --force --deep --sign - "$APP"
 echo "Built: $APP"
