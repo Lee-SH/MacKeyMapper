@@ -18,17 +18,13 @@ final class KeyEventMonitor {
             guard let refcon = refcon else { return Unmanaged.passUnretained(event) }
             let monitor = Unmanaged<KeyEventMonitor>.fromOpaque(refcon).takeUnretainedValue()
             let code = UInt16(truncatingIfNeeded: event.getIntegerValueField(.keyboardEventKeycode))
-            var length = 0
-            var chars = [UniChar](repeating: 0, count: 4)
-            event.keyboardGetUnicodeString(maxStringLength: 4,
-                                           actualStringLength: &length,
-                                           unicodeString: &chars)
-            let characters = String(utf16CodeUnits: chars, count: length)
             let isRepeat = event.getIntegerValueField(.keyboardEventAutorepeat) != 0
             switch type {
-            case .keyDown:      if !isRepeat { monitor.onEvent?(code, true, false, characters) }
-            case .keyUp:        monitor.onEvent?(code, false, false, characters)
-            case .flagsChanged: monitor.onEvent?(code, false, true, "")
+            // Only key-down needs the produced character (for scan capture); compute it there
+            // so keyboardGetUnicodeString isn't invoked for flagsChanged (undefined for it).
+            case .keyDown:      if !isRepeat { monitor.onEvent?(code, true, false, KeyEventMonitor.characters(from: event)) }
+            case .keyUp:        monitor.onEvent?(code, false, false, "")
+            case .flagsChanged: monitor.onEvent?(code, false, true, "")  // modifiers produce no character
             default:            break
             }
             return Unmanaged.passUnretained(event)
@@ -49,5 +45,12 @@ final class KeyEventMonitor {
         self.runLoopSource = source
         CFRunLoopAddSource(CFRunLoopGetMain(), source, .commonModes)
         CGEvent.tapEnable(tap: tap, enable: true)
+    }
+
+    private static func characters(from event: CGEvent) -> String {
+        var length = 0
+        var chars = [UniChar](repeating: 0, count: 4)
+        event.keyboardGetUnicodeString(maxStringLength: 4, actualStringLength: &length, unicodeString: &chars)
+        return String(utf16CodeUnits: chars, count: length)
     }
 }

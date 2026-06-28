@@ -16,8 +16,8 @@ final class AppState: ObservableObject {
     @Published var accessibilityTrusted: Bool = false
     @Published var lastError: String? = nil
     @Published var theme: Theme = .dark
-    @Published var scanned: ScannedKeyboard? = nil
-    @Published var scanSession: ScanSession? = nil
+    @Published private(set) var scanned: ScannedKeyboard? = nil
+    @Published private(set) var scanSession: ScanSession? = nil
 
     private let scanStore = ScanStore(fileURL: ScanStore.defaultURL())
     private let themeDefaultsKey = "themeID"
@@ -29,7 +29,7 @@ final class AppState: ObservableObject {
         accessibilityTrusted = Permissions.isTrusted()
         theme = Theme.by(id: UserDefaults.standard.string(forKey: themeDefaultsKey))
         mappings = (try? store.load()) ?? []
-        scanned = (try? scanStore.load()) ?? nil
+        scanned = try? scanStore.load()
         monitor.onEvent = { [weak self] code, isDown, isModifier, characters in
             Task { @MainActor in
                 self?.handleKey(code: code, isDown: isDown, isModifier: isModifier, characters: characters)
@@ -123,6 +123,7 @@ final class AppState: ObservableObject {
 
     func scanBack() {
         scanSession?.back()
+        pressedKeyCodes = []   // re-pressing a modifier for the redone slot must register as a press
     }
 
     func cancelScan() {
