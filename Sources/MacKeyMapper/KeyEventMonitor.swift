@@ -1,10 +1,10 @@
 import CoreGraphics
 import Foundation
 
-/// CGEventTap 으로 keyDown/keyUp/flagsChanged 를 리슨 전용으로 감지한다.
-/// 콜백 시그니처: (virtualKeyCode, isDown, isModifier)
+/// Detects keyDown/keyUp/flagsChanged in listen-only mode via a CGEventTap.
+/// Callback signature: (virtualKeyCode, isDown, isModifier, producedCharacter)
 final class KeyEventMonitor {
-    var onEvent: ((UInt16, Bool, Bool) -> Void)?
+    var onEvent: ((UInt16, Bool, Bool, String) -> Void)?
     private var tap: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
 
@@ -18,10 +18,17 @@ final class KeyEventMonitor {
             guard let refcon = refcon else { return Unmanaged.passUnretained(event) }
             let monitor = Unmanaged<KeyEventMonitor>.fromOpaque(refcon).takeUnretainedValue()
             let code = UInt16(truncatingIfNeeded: event.getIntegerValueField(.keyboardEventKeycode))
+            var length = 0
+            var chars = [UniChar](repeating: 0, count: 4)
+            event.keyboardGetUnicodeString(maxStringLength: 4,
+                                           actualStringLength: &length,
+                                           unicodeString: &chars)
+            let characters = String(utf16CodeUnits: chars, count: length)
+            let isRepeat = event.getIntegerValueField(.keyboardEventAutorepeat) != 0
             switch type {
-            case .keyDown:      monitor.onEvent?(code, true, false)
-            case .keyUp:        monitor.onEvent?(code, false, false)
-            case .flagsChanged: monitor.onEvent?(code, false, true)
+            case .keyDown:      if !isRepeat { monitor.onEvent?(code, true, false, characters) }
+            case .keyUp:        monitor.onEvent?(code, false, false, characters)
+            case .flagsChanged: monitor.onEvent?(code, false, true, "")
             default:            break
             }
             return Unmanaged.passUnretained(event)

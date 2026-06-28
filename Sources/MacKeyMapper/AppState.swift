@@ -2,6 +2,7 @@ import SwiftUI
 import MacKeyMapperCore
 
 enum AppMode {
+    case scan
     case test
     case remap
 }
@@ -15,7 +16,10 @@ final class AppState: ObservableObject {
     @Published var accessibilityTrusted: Bool = false
     @Published var lastError: String? = nil
     @Published var theme: Theme = .dark
+    @Published var scanned: ScannedKeyboard? = nil
+    @Published var scanSession: ScanSession? = nil
 
+    private let scanStore = ScanStore(fileURL: ScanStore.defaultURL())
     private let themeDefaultsKey = "themeID"
     let catalog = KeyCatalog.keys
     private let store = RemapStore(fileURL: RemapStore.defaultURL())
@@ -25,9 +29,10 @@ final class AppState: ObservableObject {
         accessibilityTrusted = Permissions.isTrusted()
         theme = Theme.by(id: UserDefaults.standard.string(forKey: themeDefaultsKey))
         mappings = (try? store.load()) ?? []
-        monitor.onEvent = { [weak self] code, isDown, isModifier in
+        scanned = (try? scanStore.load()) ?? nil
+        monitor.onEvent = { [weak self] code, isDown, isModifier, characters in
             Task { @MainActor in
-                self?.handleKey(code: code, isDown: isDown, isModifier: isModifier)
+                self?.handleKey(code: code, isDown: isDown, isModifier: isModifier, characters: characters)
             }
         }
         monitor.start()
@@ -40,14 +45,31 @@ final class AppState: ObservableObject {
 
     func refreshPermission() {
         accessibilityTrusted = Permissions.isTrusted()
-        // 권한이 방금 허용됐다면 이벤트탭을 재시도한다. start()는 tap==nil 일 때만
-        // 동작하므로, 이전에 권한 미허용으로 탭 생성에 실패한 경우 재실행 없이 즉시 감지가 켜진다.
+        // If permission was just granted, retry the event tap. start() only acts when
+        // tap == nil, so if tap creation previously failed due to missing permission,
+        // detection turns on immediately without needing a relaunch.
         if accessibilityTrusted {
             monitor.start()
         }
     }
 
-    private func handleKey(code: UInt16, isDown: Bool, isModifier: Bool) {
+    private func handleKey(code: UInt16, isDown: Bool, isModifier: Bool, characters: String) {
+        if scanSession != nil {
+            if isModifier {
+                // flagsChanged fires on both press and release; capture on press only.
+                if pressedKeyCodes.contains(code) {
+                    pressedKeyCodes.remove(code)   // release — ignore
+                } else {
+                    pressedKeyCodes.insert(code)   // press — capture
+                    scanSession?.record(keyCode: code, character: characters)
+                    finishScanIfComplete()
+                }
+            } else if isDown {
+                scanSession?.record(keyCode: code, character: characters)
+                finishScanIfComplete()
+            }
+            return
+        }
         if isModifier {
             if pressedKeyCodes.contains(code) {
                 pressedKeyCodes.remove(code)
@@ -65,7 +87,7 @@ final class AppState: ObservableObject {
         guard mode == .remap else { return }
         if let src = pendingSourceID {
             if src == key.id {
-                pendingSourceID = nil   // 같은 키 다시 눌러 취소
+                pendingSourceID = nil   // press the same key again to cancel
             } else {
                 addMapping(sourceID: src, destID: key.id)
                 pendingSourceID = nil
@@ -87,6 +109,33 @@ final class AppState: ObservableObject {
 
     func removeMapping(_ m: KeyMapping) {
         applyAndSave(mappings.filter { $0.id != m.id })
+    }
+
+    func startScan() {
+        pressedKeyCodes = []
+        scanSession = ScanSession()
+    }
+
+    func skipScanSlot() {
+        scanSession?.skip()
+        finishScanIfComplete()
+    }
+
+    func scanBack() {
+        scanSession?.back()
+    }
+
+    func cancelScan() {
+        scanSession = nil
+    }
+
+    private func finishScanIfComplete() {
+        guard let session = scanSession, session.isComplete else { return }
+        let result = session.result()
+        try? scanStore.save(result)
+        scanned = result
+        scanSession = nil
+        pressedKeyCodes = []   // clear modifier-tracking state used during scan
     }
 
     func clearAll() {
